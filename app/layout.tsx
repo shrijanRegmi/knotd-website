@@ -9,7 +9,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Knotd — Some Knots Don't Untie",
+  title: "Knotd: Some Knots Don't Untie",
   description:
     "Find meaningful connections that last. Knotd is the dating app designed for people seeking real, lasting relationships.",
 };
