@@ -3,13 +3,13 @@ import { Heart } from "lucide-react";
 
 const footerLinks = {
   Product: [
-    { label: "Features", href: "#features" },
-    { label: "Pricing", href: "#subscriptions" },
-    { label: "Safety", href: "#safety" },
-    { label: "Download", href: "#download" },
+    { label: "Features", href: "/#features" },
+    { label: "Pricing", href: "/#subscriptions" },
+    { label: "Safety", href: "/#safety" },
+    { label: "Download", href: "/#download" },
   ],
   Company: [
-    { label: "About Us", href: "#about" },
+    { label: "About Us", href: "/#about" },
     { label: "Careers", href: "#" },
     { label: "Press", href: "#" },
     { label: "Blog", href: "#" },
@@ -68,7 +68,7 @@ export default function Footer() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
             <div className="lg:col-span-1">
-              <a href="#home" className="flex items-center gap-2">
+              <a href="/" className="flex items-center gap-2">
                 <Image
                   src="/assets/logos/knotd-logo.png"
                   alt="Knotd logo"

@@ -5,11 +5,11 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Features", href: "#features" },
-  { label: "Subscriptions", href: "#subscriptions" },
-  { label: "About Us", href: "#about" },
-  { label: "Safety", href: "#safety" },
+  { label: "Home", href: "/#home" },
+  { label: "Features", href: "/#features" },
+  { label: "Subscriptions", href: "/#subscriptions" },
+  { label: "About Us", href: "/#about" },
+  { label: "Safety", href: "/#safety" },
 ];
 
 export default function Navbar() {
@@ -19,7 +19,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-rose-100/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-18 items-center justify-between">
-          <a href="#home" className="flex items-center gap-2">
+          <a href="/" className="flex items-center gap-2">
             <Image
               src="/assets/logos/knotd-logo.png"
               alt="Knotd logo"
@@ -43,7 +43,7 @@ export default function Navbar() {
 
           <div className="hidden md:block">
             <a
-              href="#download"
+              href="/#download"
               className="gradient-bg inline-flex items-center rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all hover:scale-105"
             >
               Download App
@@ -74,7 +74,7 @@ export default function Navbar() {
               </a>
             ))}
             <a
-              href="#download"
+              href="/#download"
               onClick={() => setMobileOpen(false)}
               className="gradient-bg block text-center rounded-full px-6 py-2.5 text-sm font-semibold text-white mt-2"
             >
