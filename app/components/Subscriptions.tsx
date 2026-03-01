@@ -3,55 +3,43 @@ import { Check, Star, Crown } from "lucide-react";
 const plans = [
   {
     name: "Free",
-    price: "$0",
-    period: "forever",
+    price: "NPR 0",
+    period: "/ forever",
+    weeklyPrice: "NPR 0",
     description: "Get started and explore what Knotd has to offer.",
     icon: Heart,
-    features: [
-      "10 likes per day",
-      "Basic matching algorithm",
-      "Text messaging",
-      "Profile creation",
-      "Limited discovery filters",
-    ],
+    features: ["10 likes / 12 hrs", "2 super likes / week", "1 reveal / week"],
     cta: "Get Started",
     popular: false,
   },
   {
-    name: "Premium",
-    price: "$14.99",
-    period: "per month",
-    description: "Unlock powerful features to find your perfect match.",
+    name: "Lightning",
+    price: "NPR 299",
+    period: "/ month",
+    weeklyPrice: "NPR 99",
+    description: "More likes, super likes, and reveals.",
     icon: Star,
     features: [
-      "Unlimited likes",
-      "Advanced AI matching",
-      "See who liked you",
-      "Priority messaging",
-      "Advanced filters",
-      "Read receipts",
-      "Priority support",
+      "30 likes / 12 hrs",
+      "4 super likes / week",
+      "Unlimited reveals",
     ],
-    cta: "Go Premium",
+    cta: "Go Lightning",
     popular: true,
   },
   {
-    name: "VIP",
-    price: "$29.99",
-    period: "per month",
-    description: "The ultimate dating experience with exclusive perks.",
+    name: "Ultra Lightning",
+    price: "NPR 699",
+    period: "/ month",
+    weeklyPrice: "NPR 249",
+    description: "Even more likes, super likes, and reveals.",
     icon: Crown,
     features: [
-      "Everything in Premium",
-      "Profile boost weekly",
-      "Incognito mode",
-      "Travel mode",
-      "Exclusive events access",
-      "Personal matchmaker",
-      "Priority visibility",
-      "VIP badge",
+      "100 likes / 12 hrs",
+      "6 super likes / week",
+      "Unlimited reveals",
     ],
-    cta: "Go VIP",
+    cta: "Go Ultra Lightning",
     popular: false,
   },
 ];
@@ -136,8 +124,15 @@ export default function Subscriptions() {
                   <span
                     className={`text-sm ml-1 ${plan.popular ? "text-white/60" : "text-dark-light/40"}`}
                   >
-                    /{plan.period}
+                    {plan.period}
                   </span>
+                  {plan.weeklyPrice && (
+                    <p
+                      className={`mt-1 text-sm ${plan.popular ? "text-white/70" : "text-dark-light/50"}`}
+                    >
+                      or <span>{plan.weeklyPrice}</span> / week
+                    </p>
+                  )}
                 </div>
 
                 <ul className="space-y-3 mb-8">
@@ -155,15 +150,17 @@ export default function Subscriptions() {
                   ))}
                 </ul>
 
-                <button
-                  className={`w-full rounded-full py-3.5 text-sm font-semibold transition-all hover:scale-105 ${
-                    plan.popular
-                      ? "bg-white text-primary shadow-lg hover:shadow-xl"
-                      : "gradient-bg text-white shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
-                  }`}
-                >
-                  {plan.cta}
-                </button>
+                <a href="/#download">
+                  <button
+                    className={`w-full rounded-full py-3.5 text-sm font-semibold transition-all hover:scale-105 cursor-pointer ${
+                      plan.popular
+                        ? "bg-white text-primary shadow-lg hover:shadow-xl"
+                        : "gradient-bg text-white shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
+                    }`}
+                  >
+                    {plan.cta}
+                  </button>
+                </a>
               </div>
             );
           })}
