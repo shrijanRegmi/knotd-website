@@ -25,7 +25,7 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer id="download" className="relative overflow-hidden">
+    <footer id="download" className="relative overflow-hidden pt-18">
       <div className="gradient-bg py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight">

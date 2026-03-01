@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden pt-18"
+      className="relative min-h-screen flex items-center overflow-hidden py-32"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-rose-50 via-white to-pink-50" />
       <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-gradient-to-br from-primary/10 to-primary-light/10 rounded-full blur-3xl" />
@@ -152,7 +152,7 @@ export default function Hero() {
 
       <a
         href="#features"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-primary/40 hover:text-primary transition-colors"
+        className="absolute bottom-25 left-1/2 -translate-x-1/2 animate-bounce text-primary/40 hover:text-primary transition-colors"
       >
         <ArrowDown size={28} />
       </a>

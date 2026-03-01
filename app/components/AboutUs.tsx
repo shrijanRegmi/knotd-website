@@ -55,7 +55,7 @@ export default function AboutUs() {
                 swiping endlessly, yet feeling more disconnected than ever.
               </p>
               <p>
-                Founded in 2023, our mission is to create technology that fosters
+                Founded in 2026, our mission is to create technology that fosters
                 genuine human connection. We believe that when you tie a real
                 knot with someone, it shouldn&apos;t come undone easily.
               </p>
@@ -78,7 +78,7 @@ export default function AboutUs() {
               />
             </div>
             <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl shadow-primary/10 p-6">
-              <p className="text-3xl font-bold gradient-text">Since 2023</p>
+              <p className="text-3xl font-bold gradient-text">Since 2026</p>
               <p className="text-sm text-dark-light/60 mt-1">
                 Tying knots that last
               </p>
