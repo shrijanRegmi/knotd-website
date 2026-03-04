@@ -75,10 +75,7 @@ function transformPlan(plan: ApiSubscriptionPlan): DisplayPlan {
     weeklyPrice: plan.weeklyPrice != null ? plan.weeklyPrice / 100 : null,
     currency: plan.currency,
     features: deriveFeatures(plan),
-    cta:
-      plan.monthlyPrice != null
-        ? `Upgrade to ${plan.displayName}`
-        : "Current Plan",
+    cta: plan.monthlyPrice != null ? `Go ${plan.displayName}` : "Current Plan",
     popular: plan.tier === "lightning",
   };
 }
@@ -139,7 +136,10 @@ type PremiumAction =
   | { type: PremiumActionType.PlansSuccess; plans: DisplayPlan[] }
   | { type: PremiumActionType.PlansError; error: string }
   | { type: PremiumActionType.ItemsLoading }
-  | { type: PremiumActionType.ItemsSuccess; items: Record<string, DisplayItem[]> }
+  | {
+      type: PremiumActionType.ItemsSuccess;
+      items: Record<string, DisplayItem[]>;
+    }
   | { type: PremiumActionType.ItemsError; error: string };
 
 const initialState: PremiumState = {
@@ -166,7 +166,11 @@ function premiumReducer(
         plansError: null,
       };
     case PremiumActionType.PlansError:
-      return { ...state, plansStatus: AsyncStatus.Error, plansError: action.error };
+      return {
+        ...state,
+        plansStatus: AsyncStatus.Error,
+        plansError: action.error,
+      };
     case PremiumActionType.ItemsLoading:
       return { ...state, itemsStatus: AsyncStatus.Loading, itemsError: null };
     case PremiumActionType.ItemsSuccess:
@@ -177,7 +181,11 @@ function premiumReducer(
         itemsError: null,
       };
     case PremiumActionType.ItemsError:
-      return { ...state, itemsStatus: AsyncStatus.Error, itemsError: action.error };
+      return {
+        ...state,
+        itemsStatus: AsyncStatus.Error,
+        itemsError: action.error,
+      };
   }
 }
 

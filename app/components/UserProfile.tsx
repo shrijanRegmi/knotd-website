@@ -1,7 +1,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { User, Heart, Zap, Eye, Star, Crown, Sparkles, LogOut } from "lucide-react";
+import {
+  User,
+  Heart,
+  Zap,
+  Eye,
+  Star,
+  Crown,
+  Sparkles,
+  LogOut,
+} from "lucide-react";
 import { useUser } from "@/app/context/UserContext";
 import { useAuth } from "@/app/context/AuthContext";
 import { SubscriptionTier } from "@/app/lib/api";
@@ -64,28 +73,28 @@ export default function UserProfile() {
       label: "Likes",
       value: likesRemaining,
       icon: Heart,
-      color: "text-pink-500",
-      bgColor: "bg-pink-50",
-      gradientFrom: "from-pink-500",
-      gradientTo: "to-rose-500",
+      color: "text-[#FF6B6B]",
+      bgColor: "bg-[#FF6B6B]/10",
+      gradientFrom: "from-[#FF6B6B]",
+      gradientTo: "to-[#FF6B6B]/80",
     },
     {
       label: "Super Likes",
       value: superLikesRemaining,
       icon: Zap,
-      color: "text-amber-500",
-      bgColor: "bg-amber-50",
-      gradientFrom: "from-amber-500",
-      gradientTo: "to-orange-500",
+      color: "text-[#34C2B8]",
+      bgColor: "bg-[#34C2B8]/10",
+      gradientFrom: "from-[#34C2B8]",
+      gradientTo: "to-[#34C2B8]/80",
     },
     {
       label: "Reveals",
       value: seeWhoLikedYouRemaining,
       icon: Eye,
-      color: "text-purple-500",
-      bgColor: "bg-purple-50",
-      gradientFrom: "from-purple-500",
-      gradientTo: "to-indigo-500",
+      color: "text-[#FFB366]",
+      bgColor: "bg-[#FFB366]/20",
+      gradientFrom: "from-[#FFB366]",
+      gradientTo: "to-[#FFB366]/70",
     },
   ];
 

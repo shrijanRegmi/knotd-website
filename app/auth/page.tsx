@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { useAuth, AuthStatus } from "@/app/context/AuthContext";
 import { useUser } from "@/app/context/UserContext";
@@ -10,7 +11,11 @@ export default function AuthPage() {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   const router = useRouter();
   const { loginWithGoogle, state } = useAuth();
-  const { loadUser, isAuthenticated: isUserAuthenticated, isLoading: isUserLoading } = useUser();
+  const {
+    loadUser,
+    isAuthenticated: isUserAuthenticated,
+    isLoading: isUserLoading,
+  } = useUser();
 
   useEffect(() => {
     if (!isUserLoading && isUserAuthenticated) {
@@ -38,14 +43,14 @@ export default function AuthPage() {
       <div className="relative z-10 w-full max-w-md mx-auto px-6">
         {/* Logo and header */}
         <div className="text-center mb-12 animate-fade-in-up">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full gradient-bg mb-6 shadow-xl shadow-primary/30 animate-float">
-            <svg
-              className="w-10 h-10 text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-            </svg>
+          <div className="inline-flex items-center justify-center mb-6 shadow-xl shadow-primary/30">
+            <Image
+              src="/assets/logos/knotd-logo.png"
+              alt="Knotd logo"
+              width={60}
+              height={60}
+              className="object-contain rounded-lg"
+            />
           </div>
 
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-dark mb-3">
@@ -53,7 +58,7 @@ export default function AuthPage() {
           </h1>
 
           <p className="text-base text-dark-light/70 leading-relaxed">
-            Find meaningful connections that last a lifetime
+            Login to your Knotd account to enable premium features.
           </p>
         </div>
 
@@ -149,7 +154,9 @@ export default function AuthPage() {
               {/* Invisible GoogleLogin overlay — captures clicks and returns id_token */}
               <div
                 className={`absolute inset-0 z-10 flex items-center justify-center overflow-hidden rounded-2xl cursor-pointer ${
-                  state.status === AuthStatus.Loading ? "pointer-events-none" : ""
+                  state.status === AuthStatus.Loading
+                    ? "pointer-events-none"
+                    : ""
                 }`}
                 style={{ opacity: 0.01 }}
               >
