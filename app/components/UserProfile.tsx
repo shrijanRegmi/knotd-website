@@ -81,7 +81,7 @@ export default function UserProfile() {
     {
       label: "Reveals",
       value:
-        currentTier.label !== SubscriptionTier.Free
+        subscriptionTier !== SubscriptionTier.Free
           ? null
           : seeWhoLikedYouRemaining,
       icon: Eye,
@@ -209,7 +209,7 @@ export default function UserProfile() {
             <p className="text-sm text-dark-light/70 text-center">
               💡 <span className="font-semibold">Pro Tip:</span> Your quotas
               reset based on your subscription plan.{" "}
-              {currentTier.label === SubscriptionTier.Free
+              {subscriptionTier === SubscriptionTier.Free
                 ? "Upgrade for more!"
                 : ""}
             </p>
