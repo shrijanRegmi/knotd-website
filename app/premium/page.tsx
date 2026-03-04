@@ -6,7 +6,6 @@ import {
   Star,
   Crown,
   Heart,
-  Zap,
   Eye,
   Sparkles,
   X,
@@ -24,15 +23,36 @@ import UserProfile from "@/app/components/UserProfile";
 
 const PLAN_ICON_MAP: Record<string, LucideIcon> = {
   free: Heart,
-  lightning: Star,
+  lightning: Crown,
   ultraLightning: Crown,
 };
 
 const ITEM_SECTIONS = [
-  { key: "likes", title: "Extra Likes", icon: Heart },
-  { key: "superLikes", title: "Super Likes", icon: Zap },
-  { key: "seeWhoLikedYou", title: "Profile Reveals", icon: Eye },
+  { key: "likes", title: "Extra Likes", icon: Heart, color: "pink" },
+  { key: "superLikes", title: "Super Likes", icon: Star, color: "amber" },
+  { key: "seeWhoLikedYou", title: "Profile Reveals", icon: Eye, color: "purple" },
 ];
+
+const ITEM_COLOR_CONFIG = {
+  pink: {
+    bg: "bg-[#FF6B6B]/10",
+    icon: "text-[#FF6B6B]",
+    button: "bg-[#FF6B6B] hover:bg-[#FF6B6B]/90",
+    shadow: "shadow-[#FF6B6B]/20 hover:shadow-[#FF6B6B]/40",
+  },
+  amber: {
+    bg: "bg-[#34C2B8]/10",
+    icon: "text-[#34C2B8]",
+    button: "bg-[#34C2B8] hover:bg-[#34C2B8]/90",
+    shadow: "shadow-[#34C2B8]/20 hover:shadow-[#34C2B8]/40",
+  },
+  purple: {
+    bg: "bg-[#FFB366]/20",
+    icon: "text-[#FFB366]",
+    button: "bg-[#FFB366] hover:bg-[#FFB366]/90",
+    shadow: "shadow-[#FFB366]/20 hover:shadow-[#FFB366]/40",
+  },
+} as const;
 
 // ── Skeleton components ─────────────────────────────────────────────────────
 
@@ -107,11 +127,13 @@ function ItemCard({
   icon: Icon,
   index,
   onPurchase,
+  colors,
 }: {
   item: DisplayItem;
   icon: LucideIcon;
   index: number;
   onPurchase: (name: string) => void;
+  colors: (typeof ITEM_COLOR_CONFIG)[keyof typeof ITEM_COLOR_CONFIG];
 }) {
   return (
     <div
@@ -119,13 +141,16 @@ function ItemCard({
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="flex items-start justify-between mb-4">
-        <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 bg-primary/10">
-          <Icon className="w-6 h-6 text-primary" />
+        <div
+          className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-12`}
+        >
+          <Icon className={`w-6 h-6 ${colors.icon}`} />
         </div>
         <div className="text-right">
-          <span className="text-2xl font-bold text-dark">
-            {item.currency} {item.price}
-          </span>
+          <p className="text-xs text-dark-light/50 uppercase tracking-wide font-semibold">
+            {item.currency}
+          </p>
+          <p className="text-2xl font-bold text-dark">{item.price}</p>
         </div>
       </div>
 
@@ -134,10 +159,13 @@ function ItemCard({
 
       <button
         onClick={() => onPurchase(item.displayName)}
-        className="purchase-button w-full rounded-full py-3 text-sm font-semibold gradient-bg text-white shadow-md hover:shadow-lg hover:shadow-primary/30 transition-all hover:scale-105 active:scale-95"
+        className={`w-full rounded-full py-3 text-sm font-semibold ${colors.button} text-white ${colors.shadow} shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95`}
       >
         Purchase Now
       </button>
+
+      {/* Hover Glow Effect */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 to-primary-light/0 group-hover:from-primary/5 group-hover:to-primary-light/5 transition-all duration-300 pointer-events-none" />
     </div>
   );
 }
@@ -401,6 +429,11 @@ export default function PremiumPage() {
                         icon={section.icon}
                         index={index}
                         onPurchase={handlePurchase}
+                        colors={
+                          ITEM_COLOR_CONFIG[
+                            section.color as keyof typeof ITEM_COLOR_CONFIG
+                          ]
+                        }
                       />
                     ))}
                   </div>

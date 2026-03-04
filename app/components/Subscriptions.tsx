@@ -1,12 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Star, Crown, Heart, Sparkles, RefreshCw, Zap, Eye, type LucideIcon } from "lucide-react";
-import { usePremiumData, AsyncStatus, type DisplayItem } from "@/app/hooks/usePremiumData";
+import {
+  Check,
+  Crown,
+  Heart,
+  Sparkles,
+  RefreshCw,
+  Zap,
+  Eye,
+  type LucideIcon,
+  Star,
+} from "lucide-react";
+import {
+  usePremiumData,
+  AsyncStatus,
+  type DisplayItem,
+} from "@/app/hooks/usePremiumData";
 
 const PLAN_ICON_MAP: Record<string, LucideIcon> = {
   free: Heart,
-  lightning: Star,
+  lightning: Crown,
   ultraLightning: Crown,
 };
 
@@ -34,15 +48,33 @@ function PlanCardSkeleton() {
   );
 }
 
-function ErrorBanner({ message, onRetry }: { message: string; onRetry: () => void }) {
+function ErrorBanner({
+  message,
+  onRetry,
+}: {
+  message: string;
+  onRetry: () => void;
+}) {
   return (
     <div className="flex flex-col items-center gap-4 py-16 px-4">
       <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
-        <svg className="w-7 h-7 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        <svg
+          className="w-7 h-7 text-red-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
         </svg>
       </div>
-      <p className="text-sm text-dark-light/60 text-center max-w-md">{message}</p>
+      <p className="text-sm text-dark-light/60 text-center max-w-md">
+        {message}
+      </p>
       <button
         onClick={onRetry}
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold gradient-bg text-white shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95"
@@ -55,17 +87,31 @@ function ErrorBanner({ message, onRetry }: { message: string; onRetry: () => voi
 }
 
 export default function Subscriptions() {
-  const [selectedBillingCycle, setSelectedBillingCycle] = useState<"monthly" | "weekly">("monthly");
-  const { plans, plansStatus, plansError, retryPlans, items, itemsStatus, itemsError, retryItems } = usePremiumData();
+  const [selectedBillingCycle, setSelectedBillingCycle] = useState<
+    "monthly" | "weekly"
+  >("monthly");
+  const {
+    plans,
+    plansStatus,
+    plansError,
+    retryPlans,
+    items,
+    itemsStatus,
+    itemsError,
+    retryItems,
+  } = usePremiumData();
 
   const ITEM_SECTIONS = [
     { key: "likes", title: "Likes", icon: Heart, color: "pink" },
-    { key: "superLikes", title: "Super Likes", icon: Zap, color: "amber" },
+    { key: "superLikes", title: "Super Likes", icon: Star, color: "amber" },
     { key: "seeWhoLikedYou", title: "Reveals", icon: Eye, color: "purple" },
   ];
 
   return (
-    <section id="subscriptions" className="py-24 lg:py-32 relative overflow-hidden">
+    <section
+      id="subscriptions"
+      className="py-24 lg:py-32 relative overflow-hidden"
+    >
       {/* Background decorative elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-rose-50/40 to-white" />
       <div className="absolute top-20 right-10 w-[500px] h-[500px] bg-gradient-to-br from-primary/5 to-primary-light/5 rounded-full blur-3xl animate-float" />
@@ -82,7 +128,8 @@ export default function Subscriptions() {
             Choose Your <span className="gradient-text">Perfect Plan</span>
           </h2>
           <p className="mt-5 text-lg text-dark-light/60 leading-relaxed animate-fade-in-up-delayed">
-            Whether you&apos;re just getting started or ready to go all in, we&apos;ve got a plan for you.
+            Whether you&apos;re just getting started or ready to go all in,
+            we&apos;ve got a plan for you.
           </p>
         </div>
 
@@ -117,12 +164,15 @@ export default function Subscriptions() {
           <ErrorBanner message={plansError} onRetry={retryPlans} />
         ) : (
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8 items-start">
-            {plansStatus === AsyncStatus.Loading || plansStatus === AsyncStatus.Idle
+            {plansStatus === AsyncStatus.Loading ||
+            plansStatus === AsyncStatus.Idle
               ? [1, 2, 3].map((i) => <PlanCardSkeleton key={i} />)
               : plans.map((plan, index) => {
                   const Icon = PLAN_ICON_MAP[plan.tier] ?? Heart;
                   const price =
-                    selectedBillingCycle === "monthly" ? plan.monthlyPrice : plan.weeklyPrice;
+                    selectedBillingCycle === "monthly"
+                      ? plan.monthlyPrice
+                      : plan.weeklyPrice;
 
                   return (
                     <div
@@ -178,7 +228,10 @@ export default function Subscriptions() {
                             <span
                               className={`text-sm ml-2 ${plan.popular ? "text-white/60" : "text-dark-light/40"}`}
                             >
-                              / {selectedBillingCycle === "monthly" ? "month" : "week"}
+                              /{" "}
+                              {selectedBillingCycle === "monthly"
+                                ? "month"
+                                : "week"}
                             </span>
                           </div>
                         ) : (
@@ -232,16 +285,21 @@ export default function Subscriptions() {
               Or Grab <span className="gradient-text">Quick Boosts</span>
             </h3>
             <p className="text-base text-dark-light/60">
-              Need an instant boost? Get exactly what you need, when you need it.
+              Need an instant boost? Get exactly what you need, when you need
+              it.
             </p>
           </div>
 
           {itemsStatus === AsyncStatus.Error && itemsError ? (
             <ErrorBanner message={itemsError} onRetry={retryItems} />
-          ) : itemsStatus === AsyncStatus.Loading || itemsStatus === AsyncStatus.Idle ? (
+          ) : itemsStatus === AsyncStatus.Loading ||
+            itemsStatus === AsyncStatus.Idle ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-white rounded-2xl p-6 border border-rose-100/80 animate-pulse">
+                <div
+                  key={i}
+                  className="bg-white rounded-2xl p-6 border border-rose-100/80 animate-pulse"
+                >
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-12 h-12 rounded-xl bg-rose-100" />
                     <div className="h-6 w-20 bg-rose-100 rounded-lg" />
@@ -257,7 +315,7 @@ export default function Subscriptions() {
               {ITEM_SECTIONS.map((section) => {
                 const sectionItems: DisplayItem[] = items[section.key] ?? [];
                 const Icon = section.icon;
-                
+
                 return sectionItems.map((item, index) => {
                   const colorConfig = {
                     pink: {
@@ -280,7 +338,8 @@ export default function Subscriptions() {
                     },
                   };
 
-                  const colors = colorConfig[section.color as keyof typeof colorConfig];
+                  const colors =
+                    colorConfig[section.color as keyof typeof colorConfig];
 
                   return (
                     <div
@@ -290,7 +349,9 @@ export default function Subscriptions() {
                     >
                       {/* Header with Icon and Price */}
                       <div className="flex items-center justify-between mb-4">
-                        <div className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12`}>
+                        <div
+                          className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12`}
+                        >
                           <Icon className={`w-6 h-6 ${colors.icon}`} />
                         </div>
                         <div className="text-right">

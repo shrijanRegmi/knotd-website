@@ -1,16 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  User,
-  Heart,
-  Zap,
-  Eye,
-  Star,
-  Crown,
-  Sparkles,
-  LogOut,
-} from "lucide-react";
+import { User, Heart, Eye, Star, Crown, LogOut } from "lucide-react";
 import { useUser } from "@/app/context/UserContext";
 import { useAuth } from "@/app/context/AuthContext";
 import { SubscriptionTier } from "@/app/lib/api";
@@ -50,7 +41,7 @@ export default function UserProfile() {
     },
     [SubscriptionTier.Lightning]: {
       label: "Lightning",
-      icon: Star,
+      icon: Crown,
       gradient: "from-amber-500 to-orange-500",
       bgColor: "bg-gradient-to-r from-amber-500 to-orange-500",
       textColor: "text-white",
@@ -81,7 +72,7 @@ export default function UserProfile() {
     {
       label: "Super Likes",
       value: superLikesRemaining,
-      icon: Zap,
+      icon: Star,
       color: "text-[#34C2B8]",
       bgColor: "bg-[#34C2B8]/10",
       gradientFrom: "from-[#34C2B8]",
@@ -89,7 +80,10 @@ export default function UserProfile() {
     },
     {
       label: "Reveals",
-      value: seeWhoLikedYouRemaining,
+      value:
+        currentTier.label !== SubscriptionTier.Free
+          ? null
+          : seeWhoLikedYouRemaining,
       icon: Eye,
       color: "text-[#FFB366]",
       bgColor: "bg-[#FFB366]/20",
@@ -193,7 +187,7 @@ export default function UserProfile() {
                       <span
                         className={`text-3xl sm:text-4xl font-extrabold bg-gradient-to-r ${item.gradientFrom} ${item.gradientTo} bg-clip-text text-transparent`}
                       >
-                        {item.value}
+                        {item.value ?? "∞"}
                       </span>
                     </div>
 
