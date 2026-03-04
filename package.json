@@ -10,6 +10,7 @@
     "deploy": "next build && pm2 reload website"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.13.4",
     "lucide-react": "^0.575.0",
     "next": "16.1.6",
     "react": "19.2.3",

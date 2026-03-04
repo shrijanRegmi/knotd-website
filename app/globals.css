@@ -204,3 +204,240 @@ body {
 .showcase-scroll::-webkit-scrollbar {
   display: none;
 }
+
+/* Auth Screen Animations */
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-shine {
+  animation: shine 0.8s ease-in-out;
+}
+
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.3;
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #FE297A, #FF6464);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.particle-1 {
+  top: 20%;
+  left: 10%;
+  animation: float-particle 8s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.particle-2 {
+  top: 60%;
+  left: 15%;
+  animation: float-particle 10s ease-in-out infinite;
+  animation-delay: 2s;
+  width: 6px;
+  height: 6px;
+}
+
+.particle-3 {
+  top: 30%;
+  right: 20%;
+  animation: float-particle 12s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+.particle-4 {
+  top: 70%;
+  right: 15%;
+  animation: float-particle 9s ease-in-out infinite;
+  animation-delay: 1s;
+  width: 10px;
+  height: 10px;
+}
+
+.particle-5 {
+  top: 50%;
+  left: 5%;
+  animation: float-particle 11s ease-in-out infinite;
+  animation-delay: 3s;
+  width: 7px;
+  height: 7px;
+}
+
+.particle-6 {
+  top: 40%;
+  right: 10%;
+  animation: float-particle 13s ease-in-out infinite;
+  animation-delay: 5s;
+  width: 9px;
+  height: 9px;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(254, 41, 122, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(254, 41, 122, 0.5);
+  }
+}
+
+.auth-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.purchase-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.purchase-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.purchase-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Confetti animation for success popup */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100%) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(400%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #FE297A, #FF6464);
+  border-radius: 50%;
+  animation: confetti-fall 3s ease-out infinite;
+}
+
+.confetti-1 {
+  top: -20px;
+  left: 10%;
+  animation-delay: 0s;
+  background: #FE297A;
+}
+
+.confetti-2 {
+  top: -20px;
+  left: 30%;
+  animation-delay: 0.3s;
+  background: #FF6464;
+  width: 8px;
+  height: 8px;
+}
+
+.confetti-3 {
+  top: -20px;
+  left: 50%;
+  animation-delay: 0.6s;
+  background: #FE297A;
+}
+
+.confetti-4 {
+  top: -20px;
+  left: 70%;
+  animation-delay: 0.9s;
+  background: #FF6464;
+  width: 12px;
+  height: 12px;
+}
+
+.confetti-5 {
+  top: -20px;
+  left: 90%;
+  animation-delay: 1.2s;
+  background: #FE297A;
+  width: 9px;
+  height: 9px;
+}
+
+.confetti-6 {
+  top: -20px;
+  left: 60%;
+  animation-delay: 1.5s;
+  background: #FF6464;
+  width: 7px;
+  height: 7px;
+}
