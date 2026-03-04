@@ -1,6 +1,4 @@
-// const API_BASE = "https://api.knotd-app.com";
-const API_BASE = "http://localhost:4000";
-const API_VERSION = "/api/v1";
+import { API_BASE, API_VERSION } from "./api";
 
 const TOKEN_KEYS = {
   access: "knotd_access_token",

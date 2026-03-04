@@ -5,8 +5,8 @@ import {
   clearTokens,
 } from "./auth";
 
-const API_BASE = "http://localhost:4000";
-const API_VERSION = "/api/v1";
+export const API_BASE = "https://api.knotd-app.com";
+export const API_VERSION = "/api/v1";
 
 class TokenExpiredError extends Error {
   constructor() {
