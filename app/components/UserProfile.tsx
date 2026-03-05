@@ -214,6 +214,18 @@ export default function UserProfile() {
                 : ""}
             </p>
           </div>
+
+          {/* Manage Subscription Button (only for paid tiers) */}
+          {subscriptionTier !== SubscriptionTier.Free && (
+            <div className="mt-4">
+              <a
+                href="/subscriptions/cancel"
+                className="block w-full text-center px-4 py-3 rounded-2xl text-sm font-semibold text-dark-light/70 hover:text-dark hover:bg-rose-50/50 transition-all duration-300 border border-rose-100/50 hover:border-rose-200"
+              >
+                Manage Subscription
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>

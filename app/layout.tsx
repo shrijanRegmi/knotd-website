@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Providers from "@/app/components/Providers";
 import "./globals.css";
+import { config } from "./lib/config";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -24,8 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}>
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        {config.google.analyticsMeasurementId && (
+          <GoogleAnalytics gaId={config.google.analyticsMeasurementId} />
         )}
         <Providers>{children}</Providers>
       </body>

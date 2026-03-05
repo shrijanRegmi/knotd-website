@@ -10,6 +10,7 @@ import {
   Sparkles,
   X,
   RefreshCw,
+  Loader2,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -17,6 +18,8 @@ import {
   AsyncStatus,
   type DisplayItem,
 } from "@/app/hooks/usePremiumData";
+import { useEsewaPayment } from "@/app/hooks/useEsewaPayment";
+import type { EsewaInitiateBody } from "@/app/lib/api";
 import UserProfile from "@/app/components/UserProfile";
 
 // ── Icon mappings ───────────────────────────────────────────────────────────
@@ -30,7 +33,12 @@ const PLAN_ICON_MAP: Record<string, LucideIcon> = {
 const ITEM_SECTIONS = [
   { key: "likes", title: "Extra Likes", icon: Heart, color: "pink" },
   { key: "superLikes", title: "Super Likes", icon: Star, color: "amber" },
-  { key: "seeWhoLikedYou", title: "Profile Reveals", icon: Eye, color: "purple" },
+  {
+    key: "seeWhoLikedYou",
+    title: "Profile Reveals",
+    icon: Eye,
+    color: "purple",
+  },
 ];
 
 const ITEM_COLOR_CONFIG = {
@@ -126,13 +134,15 @@ function ItemCard({
   item,
   icon: Icon,
   index,
+  disabled,
   onPurchase,
   colors,
 }: {
   item: DisplayItem;
   icon: LucideIcon;
   index: number;
-  onPurchase: (name: string) => void;
+  disabled: boolean;
+  onPurchase: (itemId: string) => void;
   colors: (typeof ITEM_COLOR_CONFIG)[keyof typeof ITEM_COLOR_CONFIG];
 }) {
   return (
@@ -158,13 +168,13 @@ function ItemCard({
       <p className="text-sm text-dark-light/60 mb-4">{item.description}</p>
 
       <button
-        onClick={() => onPurchase(item.displayName)}
-        className={`w-full rounded-full py-3 text-sm font-semibold ${colors.button} text-white ${colors.shadow} shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95`}
+        onClick={() => onPurchase(item.id)}
+        disabled={disabled}
+        className={`w-full rounded-full py-3 text-sm font-semibold ${colors.button} text-white ${colors.shadow} shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
       >
         Purchase Now
       </button>
 
-      {/* Hover Glow Effect */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 to-primary-light/0 group-hover:from-primary/5 group-hover:to-primary-light/5 transition-all duration-300 pointer-events-none" />
     </div>
   );
@@ -173,8 +183,6 @@ function ItemCard({
 // ── Main page ───────────────────────────────────────────────────────────────
 
 export default function PremiumPage() {
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [purchasedItem, setPurchasedItem] = useState("");
   const [selectedBillingCycle, setSelectedBillingCycle] = useState<
     "monthly" | "weekly"
   >("monthly");
@@ -190,9 +198,24 @@ export default function PremiumPage() {
     retryItems,
   } = usePremiumData();
 
-  const handlePurchase = (itemName: string) => {
-    setPurchasedItem(itemName);
-    setShowSuccess(true);
+  const {
+    status: paymentStatus,
+    error: paymentError,
+    pay,
+    clearError,
+  } = useEsewaPayment();
+  const isPaymentLoading = paymentStatus === "loading";
+
+  const handleSubscribe = (planId: string) => {
+    pay({
+      type: "subscription",
+      subscriptionPlanId: planId,
+      billingCycle: selectedBillingCycle,
+    });
+  };
+
+  const handlePurchaseItem = (itemId: string) => {
+    pay({ type: "purchase", purchasableItemId: itemId });
   };
 
   return (
@@ -360,13 +383,13 @@ export default function PremiumPage() {
                         </ul>
 
                         <button
-                          onClick={() => handlePurchase(plan.displayName)}
-                          disabled={!price}
-                          className={`purchase-button w-full rounded-full py-4 text-sm font-semibold transition-all hover:scale-105 active:scale-95 ${
+                          onClick={() => handleSubscribe(plan.id)}
+                          disabled={!price || isPaymentLoading}
+                          className={`purchase-button w-full rounded-full py-4 text-sm font-semibold transition-all hover:scale-105 active:scale-95 disabled:hover:scale-100 ${
                             plan.popular
-                              ? "bg-white text-primary shadow-lg hover:shadow-2xl"
+                              ? "bg-white text-primary shadow-lg hover:shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed"
                               : price
-                                ? "gradient-bg text-white shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
+                                ? "gradient-bg text-white shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 disabled:opacity-70 disabled:cursor-not-allowed"
                                 : "bg-dark/5 text-dark/40 cursor-not-allowed"
                           }`}
                         >
@@ -428,7 +451,8 @@ export default function PremiumPage() {
                         item={item}
                         icon={section.icon}
                         index={index}
-                        onPurchase={handlePurchase}
+                        disabled={isPaymentLoading}
+                        onPurchase={handlePurchaseItem}
                         colors={
                           ITEM_COLOR_CONFIG[
                             section.color as keyof typeof ITEM_COLOR_CONFIG
@@ -444,61 +468,41 @@ export default function PremiumPage() {
         </div>
       </section>
 
-      {/* Success Popup */}
-      {showSuccess && (
+      {/* Payment Loading Overlay */}
+      {isPaymentLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div
-            className="absolute inset-0 bg-dark/60 backdrop-blur-sm"
-            onClick={() => setShowSuccess(false)}
-          />
+          <div className="absolute inset-0 bg-dark/60 backdrop-blur-sm" />
+          <div className="relative bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl animate-scale-in text-center">
+            <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-dark mb-2">
+              Preparing Payment
+            </h3>
+            <p className="text-sm text-dark-light/60">
+              Connecting to eSewa. You&apos;ll be redirected shortly.
+            </p>
+          </div>
+        </div>
+      )}
 
-          <div className="relative bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl animate-scale-in">
-            <button
-              onClick={() => setShowSuccess(false)}
-              className="absolute top-4 right-4 text-dark-light/40 hover:text-dark transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
-
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full gradient-bg mb-6 animate-bounce-in">
-                <Check className="w-10 h-10 text-white" />
-              </div>
-
-              <h3 className="text-2xl font-bold text-dark mb-3">
-                Purchase Successful!
-              </h3>
-
-              <p className="text-base text-dark-light/70 mb-2">
-                You&apos;ve successfully purchased
-              </p>
-
-              <p className="text-xl font-bold gradient-text mb-6">
-                {purchasedItem}
-              </p>
-
-              <div className="bg-rose-50 rounded-2xl p-4 mb-6">
-                <p className="text-sm text-dark-light/70">
-                  Your purchase has been added to your account and is ready to
-                  use!
-                </p>
-              </div>
-
-              <button
-                onClick={() => setShowSuccess(false)}
-                className="w-full rounded-full py-4 text-sm font-semibold gradient-bg text-white shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all hover:scale-105 active:scale-95"
-              >
-                Awesome!
-              </button>
+      {/* Payment Error Toast */}
+      {paymentError && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 animate-fade-in-up">
+          <div className="bg-white rounded-2xl shadow-xl shadow-red-500/10 border border-red-100 p-4 flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <X className="w-4 h-4 text-red-500" />
             </div>
-
-            {/* Confetti particles */}
-            <div className="confetti confetti-1" />
-            <div className="confetti confetti-2" />
-            <div className="confetti confetti-3" />
-            <div className="confetti confetti-4" />
-            <div className="confetti confetti-5" />
-            <div className="confetti confetti-6" />
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-dark">Payment Failed</p>
+              <p className="text-xs text-dark-light/60 mt-0.5">
+                {paymentError}
+              </p>
+            </div>
+            <button
+              onClick={clearError}
+              className="text-dark-light/40 hover:text-dark transition-colors flex-shrink-0"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
         </div>
       )}
