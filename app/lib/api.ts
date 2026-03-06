@@ -210,7 +210,7 @@ export type EsewaCompleteResponse =
 export function initiateEsewaPayment(
   body: EsewaInitiateBody,
 ): Promise<EsewaInitiateResponse> {
-  return apiFetch<EsewaInitiateResponse>("/payments/esewa/initiate", {
+  return apiFetch<EsewaInitiateResponse>("/payments/esewa/initiate-epay", {
     method: "POST",
     body: JSON.stringify(body),
   });
@@ -219,9 +219,9 @@ export function initiateEsewaPayment(
 export function completeEsewaPayment(
   data: string,
 ): Promise<EsewaCompleteResponse> {
-  return apiFetch<EsewaCompleteResponse>("/payments/esewa/complete", {
+  return apiFetch<EsewaCompleteResponse>("/payments/esewa/complete-epay", {
     method: "POST",
-    body: JSON.stringify({ data }),
+    body: JSON.stringify({ data, scope: "web" }),
   });
 }
 
