@@ -272,7 +272,7 @@ export default function PrivacyPolicy() {
               </p>
             </Section>
 
-            <Section title="8. Children's Privacy">
+            <Section title="8. Children's Privacy" id="children">
               <p>
                 Knotd is not intended for anyone under the age of 18. We do not
                 knowingly collect personal information from children under 18.
@@ -280,6 +280,15 @@ export default function PrivacyPolicy() {
                 personal information, we will take immediate steps to delete
                 that information. If you believe a minor has created an account,
                 please contact us immediately.
+              </p>
+              <p>
+                For our published standards against child sexual abuse and
+                exploitation (CSAE), how we address child safety, and how to
+                report concerns, see our{" "}
+                <a href="/child-safety" className="text-primary hover:underline">
+                  Child Safety Standards
+                </a>{" "}
+                page.
               </p>
             </Section>
 
@@ -401,13 +410,15 @@ export default function PrivacyPolicy() {
 
 function Section({
   title,
+  id,
   children,
 }: {
   title: string;
+  id?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="mt-12 first:mt-0">
+    <section id={id} className="mt-12 first:mt-0 scroll-mt-28">
       <h2 className="text-xl font-bold text-dark mb-5 pt-2">{title}</h2>
       <div className="space-y-4 [&_h4]:text-base [&_h4]:font-semibold [&_h4]:text-dark [&_h4]:mt-8 [&_h4]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2.5 [&_li]:text-sm [&_p]:text-sm">
         {children}

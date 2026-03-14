@@ -14,6 +14,7 @@ const footerLinks = {
   Legal: [
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
+    { label: "Child Safety Standards", href: "/child-safety" },
   ],
   // Support: [
   //   { label: "Help Center", href: "#" },
