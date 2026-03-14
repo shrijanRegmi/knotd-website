@@ -58,7 +58,7 @@ function deriveFeatures(plan: ApiSubscriptionPlan): string[] {
         ? "1 reveal"
         : `${plan.seeWhoLikedYouQuota} reveals`;
     features.push(`${label} / ${revealReset}`);
-  } else if (plan.monthlyPrice != null) {
+  } else if (plan.monthlyPriceNpr != null) {
     features.push("Unlimited reveals");
   }
 
@@ -71,11 +71,13 @@ function transformPlan(plan: ApiSubscriptionPlan): DisplayPlan {
     tier: plan.tier,
     displayName: plan.displayName,
     description: plan.description,
-    monthlyPrice: plan.monthlyPrice != null ? plan.monthlyPrice / 100 : null,
-    weeklyPrice: plan.weeklyPrice != null ? plan.weeklyPrice / 100 : null,
+    monthlyPrice:
+      plan.monthlyPriceNpr != null ? plan.monthlyPriceNpr / 100 : null,
+    weeklyPrice: plan.weeklyPriceNpr != null ? plan.weeklyPriceNpr / 100 : null,
     currency: plan.currency,
     features: deriveFeatures(plan),
-    cta: plan.monthlyPrice != null ? `Go ${plan.displayName}` : "Current Plan",
+    cta:
+      plan.monthlyPriceNpr != null ? `Go ${plan.displayName}` : "Current Plan",
     popular: plan.tier === "lightning",
   };
 }
@@ -87,7 +89,7 @@ function transformItem(item: ApiPurchaseableItem): DisplayItem {
     displayName: item.displayName,
     description: item.description,
     quantity: item.quantity,
-    price: item.price / 100,
+    price: item.priceNpr / 100,
     currency: item.currency,
   };
 }
