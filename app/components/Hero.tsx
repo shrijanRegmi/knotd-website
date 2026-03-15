@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Globe } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -21,8 +21,7 @@ export default function Hero() {
             </div>
 
             <h1 className="animate-fade-in-up text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-dark leading-[1.1]">
-              Some Knots{" "}
-              <span className="gradient-text">Don&apos;t Untie</span>
+              Some Knots <span className="gradient-text">Don&apos;t Untie</span>
             </h1>
 
             <p className="animate-fade-in-up-delayed mt-6 text-lg sm:text-xl text-dark-light/70 max-w-lg mx-auto lg:mx-0 leading-relaxed">
@@ -32,21 +31,10 @@ export default function Hero() {
 
             <div className="animate-fade-in-up-delayed-2 mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a
-                href="#download"
+                href="https://play.google.com/store/apps/details?id=com.sr.knotd"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="gradient-bg inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-base font-semibold text-white shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 transition-all hover:scale-105"
-              >
-                <svg
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-                </svg>
-                App Store
-              </a>
-              <a
-                href="#download"
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-dark/10 bg-white px-8 py-4 text-base font-semibold text-dark hover:border-primary/30 hover:bg-rose-50 transition-all hover:scale-105"
               >
                 <svg
                   className="w-5 h-5"
@@ -57,12 +45,36 @@ export default function Hero() {
                 </svg>
                 Google Play
               </a>
+              {/* <a
+                href="#download"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-dark/10 bg-white px-8 py-4 text-base font-semibold text-dark hover:border-primary/30 hover:bg-rose-50 transition-all hover:scale-105"
+              >
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
+                </svg>
+                App Store
+              </a> */}
+              <a
+                href="https://web.knotd-app.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-dark/10 bg-white px-8 py-4 text-base font-semibold text-dark hover:border-primary/30 hover:bg-rose-50 transition-all hover:scale-105"
+              >
+                <Globe className="w-5 h-5" />
+                Try on web
+              </a>
             </div>
 
             <div className="animate-fade-in-up-delayed-2 mt-12 flex items-center gap-8 justify-center lg:justify-start">
               <div className="text-center">
                 <p className="text-2xl font-bold gradient-text">AI</p>
-                <p className="text-xs text-dark-light/60 mt-1">Smart Matching</p>
+                <p className="text-xs text-dark-light/60 mt-1">
+                  Smart Matching
+                </p>
               </div>
               <div className="w-px h-10 bg-dark/10" />
               <div className="text-center">
@@ -74,7 +86,9 @@ export default function Hero() {
               <div className="w-px h-10 bg-dark/10" />
               <div className="text-center">
                 <p className="text-2xl font-bold gradient-text">Free</p>
-                <p className="text-xs text-dark-light/60 mt-1">To Get Started</p>
+                <p className="text-xs text-dark-light/60 mt-1">
+                  To Get Started
+                </p>
               </div>
             </div>
           </div>
@@ -108,9 +122,11 @@ export default function Hero() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-dark">It’s Official… You’re Knotted! 🎀</p>
+                  <p className="text-xs font-semibold text-dark">
+                    It’s Official… You’re Knotted! 🎀
+                  </p>
                   <p className="text-[10px] text-dark-light/60">
-                  You have a new connection
+                    You have a new connection
                   </p>
                 </div>
               </div>
@@ -141,9 +157,7 @@ export default function Hero() {
                     className="w-8 h-8 rounded-full object-cover ring-2 ring-white"
                   />
                 </div>
-                <p className="text-xs font-semibold text-dark">
-                  People nearby
-                </p>
+                <p className="text-xs font-semibold text-dark">People nearby</p>
               </div>
             </div>
           </div>
