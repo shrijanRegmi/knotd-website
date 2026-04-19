@@ -74,7 +74,7 @@ function transformPlan(plan: ApiSubscriptionPlan): DisplayPlan {
     monthlyPrice:
       plan.monthlyPriceNpr != null ? plan.monthlyPriceNpr / 100 : null,
     weeklyPrice: plan.weeklyPriceNpr != null ? plan.weeklyPriceNpr / 100 : null,
-    currency: plan.currency,
+    currency: "Rs",
     features: deriveFeatures(plan),
     cta:
       plan.monthlyPriceNpr != null ? `Go ${plan.displayName}` : "Current Plan",
@@ -90,7 +90,7 @@ function transformItem(item: ApiPurchaseableItem): DisplayItem {
     description: item.description,
     quantity: item.quantity,
     price: item.priceNpr / 100,
-    currency: item.currency,
+    currency: "Rs",
   };
 }
 

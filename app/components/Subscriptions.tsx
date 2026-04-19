@@ -355,7 +355,7 @@ export default function Subscriptions() {
                           <Icon className={`w-6 h-6 ${colors.icon}`} />
                         </div>
                         <div className="text-right">
-                          <p className="text-xs text-dark-light/50 uppercase tracking-wide font-semibold">
+                          <p className="text-xs text-dark-light/50 tracking-wide font-semibold">
                             {item.currency}
                           </p>
                           <p className="text-2xl font-bold text-dark">

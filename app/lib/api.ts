@@ -76,7 +76,6 @@ export interface ApiSubscriptionPlan {
   description: string;
   monthlyPriceNpr: number | null;
   weeklyPriceNpr: number | null;
-  currency: string;
   likesQuota: number;
   likesResetHours: number;
   superLikesQuota: number;
@@ -102,7 +101,6 @@ export interface ApiPurchaseableItem {
   description: string;
   quantity: number;
   priceNpr: number;
-  currency: string;
   isActive: boolean;
   sortOrder: number;
   createdAt: string;
