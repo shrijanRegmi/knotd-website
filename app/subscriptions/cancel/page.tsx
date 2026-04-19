@@ -195,7 +195,7 @@ function ConfirmCard({
           <div>
             <p className="text-xs text-dark-light/60 mb-1">Price</p>
             <p className="text-sm font-semibold text-dark">
-              {subscription.plan.currency}{" "}
+              Rs{" "}
               {subscription.billingCycle === "monthly"
                 ? (subscription.plan.monthlyPriceNpr ?? 0) / 100
                 : (subscription.plan.weeklyPriceNpr ?? 0) / 100}
