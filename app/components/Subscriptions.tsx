@@ -17,6 +17,7 @@ import {
   AsyncStatus,
   type DisplayItem,
 } from "@/app/hooks/usePremiumData";
+import { premiumCtaHref } from "@/app/lib/config";
 
 const PLAN_ICON_MAP: Record<string, LucideIcon> = {
   free: Heart,
@@ -258,7 +259,7 @@ export default function Subscriptions() {
                         ))}
                       </ul>
 
-                      <a href="/auth">
+                      <a href={premiumCtaHref}>
                         <button
                           disabled={!price}
                           className={`w-full rounded-full py-4 text-sm font-semibold transition-all hover:scale-105 active:scale-95 ${
@@ -373,7 +374,7 @@ export default function Subscriptions() {
                       </p>
 
                       {/* CTA Button */}
-                      <a href="/auth">
+                      <a href={premiumCtaHref}>
                         <button
                           className={`w-full rounded-full py-3 text-sm font-semibold ${colors.button} text-white ${colors.shadow} shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-95`}
                         >

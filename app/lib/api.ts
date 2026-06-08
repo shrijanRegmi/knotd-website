@@ -52,7 +52,7 @@ async function apiFetchWithRetry<T>(
     } catch (refreshError) {
       clearTokens();
       if (typeof window !== "undefined") {
-        window.location.href = "/auth";
+        window.location.href = config.premium.enabled ? "/auth" : "/#download";
       }
       throw new TokenExpiredError();
     }

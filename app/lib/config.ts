@@ -18,6 +18,11 @@ export const config = {
   env: getRequiredEnv(process.env.NEXT_PUBLIC_ENV),
   apiBase: getRequiredEnv(process.env.NEXT_PUBLIC_API_BASE),
 
+  // Set NEXT_PUBLIC_PREMIUM_ENABLED=false to hide premium UI and block auth/premium routes
+  premium: {
+    enabled: getOptionalEnv(process.env.NEXT_PUBLIC_PREMIUM_ENABLED, "true") === "true",
+  },
+
   google: {
     clientId: getRequiredEnv(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID),
     analyticsMeasurementId: getOptionalEnv(
@@ -26,3 +31,5 @@ export const config = {
     ),
   },
 };
+
+export const premiumCtaHref = config.premium.enabled ? "/auth" : "/#download";
